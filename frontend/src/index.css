@@ -204,32 +204,126 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* ── Game List ────────────────────────────────────────────────────────────── */
+/* ── View Toggle ──────────────────────────────────────────────────────────── */
+
+.view-toggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: var(--surface);
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.view-btn + .view-btn {
+  border-left: 1px solid var(--border);
+}
+
+.view-btn:hover:not(:disabled) {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.view-btn--active {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.view-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Game List — mode liste ───────────────────────────────────────────────── */
 
 .game-list {
   list-style: none;
+}
+
+.game-list--list {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
+/* ── Game List — mode grille ──────────────────────────────────────────────── */
+
+.game-list--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+/* ── Game Card — base ─────────────────────────────────────────────────────── */
+
 .game-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 13px 16px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   transition: background 0.12s, border-color 0.12s, transform 0.1s;
   cursor: default;
+  overflow: hidden;
 }
 
-.game-card:hover {
+/* ── Game Card — mode liste ───────────────────────────────────────────────── */
+
+.game-card--list {
+  gap: 12px;
+  padding: 13px 16px;
+}
+
+.game-card--list:hover {
   background: var(--surface-hover);
   border-color: #3a3c44;
   transform: translateX(2px);
 }
+
+/* ── Game Card — mode grille ──────────────────────────────────────────────── */
+
+.game-card--grid {
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px 12px 20px;
+  text-align: center;
+  min-height: 110px;
+}
+
+.game-card--grid:hover {
+  background: var(--surface-hover);
+  border-color: #3a3c44;
+  transform: translateY(-2px);
+}
+
+.game-card--grid .game-icon {
+  font-size: 2rem;
+  opacity: 0.85;
+}
+
+.game-card--grid .game-name {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  /* tronquer à 2 lignes */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Shared card sub-elements ─────────────────────────────────────────────── */
 
 .game-icon {
   font-size: 1.1rem;
@@ -256,5 +350,9 @@ body {
 
   .btn-sort {
     width: 100%;
+  }
+
+  .game-list--grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
 }
